@@ -1,0 +1,18 @@
+spring.data.elasticsearch.clusterName: elasticsearch
+spring.data.elasticsearch.clusterNodes: localhost:9300
+
+--- ###########################################################################
+
+spring.profiles: integration
+
+--- ###########################################################################
+
+spring.profiles: local
+
+--- ###########################################################################
+
+spring.profiles: staging
+
+--- ###########################################################################
+
+spring.profiles: prod
