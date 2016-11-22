@@ -1,17 +1,20 @@
 package com.jomilanez.repository;
 
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@Setter
+@NoArgsConstructor
 @ConfigurationProperties(prefix="spring.data.elasticsearch")
 public class ElasticsearchProperties {
 
-    private final String clusterName;
+    private String clusterName;
 
-    private final String clusterNodes;
+    private String clusterNodes;
 }
