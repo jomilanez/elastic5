@@ -5,7 +5,7 @@ import java.util.List;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.client.Client;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,11 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public class ElasticSearchEventsRepository implements EventsRepository {
 
-    private final TransportClient client;
+    private final Client client;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ElasticSearchEventsRepository(@NonNull TransportClient client) {
+    public ElasticSearchEventsRepository(@NonNull Client client) {
         this.client = client;
     }
 
@@ -39,7 +39,7 @@ public class ElasticSearchEventsRepository implements EventsRepository {
 
     private IndexRequestBuilder prepareIndex(Event event) {
         try {
-            return client.prepareIndex("events", "event").setSource(objectMapper.writeValueAsBytes(event));
+            return client.prepareIndex("events", "event", event.getId()).setSource(objectMapper.writeValueAsBytes(event));
         } catch (JsonProcessingException e) {
             LOGGER.error("Error when parsing event {}", event.toString(), e);
             return null;
